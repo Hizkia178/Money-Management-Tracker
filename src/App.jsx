@@ -23,7 +23,7 @@ function App() {
     <Pricing />
     <Testimonials />
     <ScrollToTop />
-    <Footer />
+      <Footer />
     </>
   )
 }
