@@ -52,7 +52,7 @@ const Signup = () => {
               <div className="card-body">
                 <div className="text-center mb-4">
                   <h2 className="fw-bold text-dark" data-aos="fade-up" data-aos-delay="200">
-                    Sign Up to <span className="text-primary">Home Budget Tracker</span>
+                    Sign Up to <span className="text-primary">Money Management Tracker</span>
                   </h2>
                   <p className="text-muted" data-aos="fade-up" data-aos-delay="300">
                     Create an account to start managing your finances with ease!
