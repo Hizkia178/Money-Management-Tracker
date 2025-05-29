@@ -95,7 +95,7 @@ const Pricing = () => {
     };
 
     return (
-        <section className="py-5 bg-white">
+        <section className="py-5 bg-white overflow-hidden">
             <div className="container">
                 <div className="row justify-content-center mb-5">
                     <div className="col-lg-8 text-center">

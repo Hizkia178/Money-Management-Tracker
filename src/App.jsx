@@ -7,6 +7,7 @@ import Problem from './components/Problem';
 import Method from './components/Method';
 import ScrollToTop from './components/ScrollTopTop';
 import Footer from './components/Footer';
+import Pricing from './components/Pricing';
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
     <Hero />
     <Problem />
     <Method />
+    <Pricing />
     <ScrollToTop />
       <Footer />
     </>
