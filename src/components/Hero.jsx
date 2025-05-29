@@ -4,7 +4,7 @@ import AOS from "aos";
 import { useNavigate } from 'react-router-dom';
 import { useBootstrapTooltips } from "../functions/Tooltip";
 import "aos/dist/aos.css";
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 
 const Hero = () => {
     const navigate = useNavigate();
@@ -31,8 +31,18 @@ const Hero = () => {
             showCancelButton: true,
             confirmButtonText: 'Yes',
             cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Demo Not Available',
+                    text: 'The demo feature is not available on this website yet.',
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                });
+            }
         });
     };
+
 
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });

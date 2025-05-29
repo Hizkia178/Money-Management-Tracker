@@ -4,6 +4,8 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import 'boxicons/css/boxicons.min.css';
 import { useBootstrapTooltips } from "../functions/Tooltip";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,6 +20,24 @@ const Signup = () => {
   };
 
   useBootstrapTooltips();
+
+  const handleSignupClick = (e) => {
+    e.preventDefault();
+
+    toast.success("Signing up...", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+    });
+
+    setTimeout(() => {
+      navigate('/login');
+    }, 3000);
+  };
 
   return (
     <section className="py-5 bg-light min-vh-100 d-flex align-items-center">
@@ -100,6 +120,7 @@ const Signup = () => {
                       className="btn btn-primary d-flex align-items-center justify-content-center w-100 shadow px-4 animate__animated animate__pulse animate__infinite"
                       data-bs-toggle="tooltip"
                       title="Create a new account"
+                      onClick={handleSignupClick}
                     >
                       Sign Up
                       <i className="bx bx-user-plus ms-2"></i>
@@ -126,6 +147,8 @@ const Signup = () => {
           </div>
         </div>
       </div>
+
+      <ToastContainer />
 
       <style>
         {`
