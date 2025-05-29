@@ -16,7 +16,7 @@ const Problem = () => {
     const subscriptions = useCounter(320000);
 
     return (
-        <section className="py-5 bg-white">
+        <section className="py-5 bg-white overflow-hidden">
             <div className="container">
                 <div className="row justify-content-center mb-5" data-aos="fade-up">
                     <div className="col-lg-8 text-center">
@@ -183,7 +183,7 @@ const Problem = () => {
                                 </div>
                             </div>
 
-                            <div className="position-absolute top-0 start-0 translate-middle" data-aos="fade-down" data-aos-delay="1300">
+                            <div className="position-absolute top-0 start-0" data-aos="fade-down" data-aos-delay="1300">
                                 <div className="card shadow border-0 rounded-3 p-3" style={{ width: '120px' }}>
                                     <div className="text-center">
                                         <i className="bx bx-coffee text-warning fs-4"></i>
@@ -193,7 +193,7 @@ const Problem = () => {
                                 </div>
                             </div>
 
-                            <div className="position-absolute top-0 end-0 translate-middle-y" data-aos="fade-down" data-aos-delay="1400">
+                            <div className="position-absolute top-0 end-0" data-aos="fade-down" data-aos-delay="1400">
                                 <div className="card shadow border-0 rounded-3 p-3" style={{ width: '130px' }}>
                                     <div className="text-center">
                                         <i className="bx bx-shopping-bag text-info fs-4"></i>
@@ -203,7 +203,7 @@ const Problem = () => {
                                 </div>
                             </div>
 
-                            <div className="position-absolute bottom-0 start-0 translate-middle-x" data-aos="fade-down" data-aos-delay="1500">
+                            <div className="position-absolute bottom-0 start-0" data-aos="fade-down" data-aos-delay="1500">
                                 <div className="card shadow border-0 rounded-3 p-3" style={{ width: '140px' }}>
                                     <div className="text-center">
                                         <i className="bx bx-credit-card text-danger fs-4"></i>

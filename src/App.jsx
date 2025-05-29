@@ -3,6 +3,7 @@ import AOS from 'aos';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Problem from './components/Problem';
 import Footer from './components/Footer';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     <>
     <Navbar />
     <Hero />
-
+    <Problem />
       <Footer />
     </>
   )
