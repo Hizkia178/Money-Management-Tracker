@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AOS from 'aos';
 
 import Navbar from './components/Navbar';
@@ -10,22 +11,42 @@ import Footer from './components/Footer';
 import Pricing from './components/Pricing';
 import Testimonials from './components/Testimonials';
 
+import Login from './pages/Login';   
+import Signup from './pages/Signup';    
+
 function App() {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
+
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Problem />
-      <Method />
-      <Pricing />
-      <Testimonials />
+    <BrowserRouter>
       <ScrollToTop />
-      <Footer />
-    </>
-  )
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <Hero />
+              <Problem />
+              <Method />
+              <Pricing />
+              <Testimonials />
+              <Footer />
+            </>
+          }
+        />
+
+      
+        <Route path="/login" element={<Login />} />
+
+      
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

@@ -1,9 +1,31 @@
 import { useEffect } from "react";
-import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS
+import Swal from "sweetalert2";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Navbar = () => {
-    // Inisialisasi AOS
+    const handleClick = async (e) => {
+        e.preventDefault();
+
+        const result = await Swal.fire({
+            title: "Add Income",
+            text: "Are you sure you want to add income?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            reverseButtons: true,
+        });
+
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Sorry",
+                text: "This feature is not available yet.",
+                icon: "info",
+                confirmButtonText: "OK",
+            });
+        }
+    };
     useEffect(() => {
         AOS.init({
             duration: 1000,
@@ -61,6 +83,7 @@ const Navbar = () => {
                                 className="btn btn-primary btn-sm ms-lg-3 mt-2 mt-lg-0 d-flex align-items-center shadow-lg justify-content-center"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="right"
+                                onClick={handleClick}
                                 title="Add Income"
                             >
                                 <i className="bx bx-plus me-1"></i>

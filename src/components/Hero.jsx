@@ -1,11 +1,39 @@
 import { useEffect } from "react";
 import useCounter from "../functions/useCounter";
 import AOS from "aos";
+import { useNavigate } from 'react-router-dom';
 import { useBootstrapTooltips } from "../functions/Tooltip";
 import "aos/dist/aos.css";
+import Swal from 'sweetalert2'; 
 
 const Hero = () => {
+    const navigate = useNavigate();
     useBootstrapTooltips();
+
+    const handleGetStartedClick = () => {
+        Swal.fire({
+            title: 'Do you want to get started for free?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate('/login');
+            }
+        });
+    };
+
+    const handleWatchDemoClick = () => {
+        Swal.fire({
+            title: 'Do you want to watch the demo?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+        });
+    };
+
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
     }, []);
@@ -17,7 +45,7 @@ const Hero = () => {
 
     return (
         <section
-           className="py-5 bg-gradient-to-br from-blue-50 to-indigo min-vh-100 d-flex align-items-center overflow-hidden"
+            className="py-5 bg-gradient-to-br from-blue-50 to-indigo min-vh-100 d-flex align-items-center overflow-hidden"
             data-aos="fade-down"
             data-aos-duration="1000"
         >
@@ -42,11 +70,11 @@ const Hero = () => {
                             </p>
 
                             <div className="d-flex flex-column flex-sm-row gap-3 mb-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
-                                <button className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="700" data-bs-toggle="tooltip" title="Get Started Free">
+                                <button className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="700" data-bs-toggle="tooltip" title="Get Started Free" onClick={handleGetStartedClick}>
                                     <i className="bx bx-rocket me-2"></i>
                                     Get Started Free
                                 </button>
-                                <button className="btn btn-outline-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="800" data-bs-toggle="tooltip" title="Watch Demo">
+                                <button className="btn btn-outline-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="800" data-bs-toggle="tooltip" title="Watch Demo" onClick={handleWatchDemoClick}>
                                     <i className="bx bx-play-circle me-2"></i>
                                     Watch Demo
                                 </button>
