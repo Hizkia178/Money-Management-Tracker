@@ -7,7 +7,8 @@ import Problem from './components/Problem';
 import Pricing from './components/Pricing';
 import Testimonials from './components/Testimonials';
 import Method from './components/Method';
-import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollTopTop';
+
 
 function App() {
   useEffect(() => {
@@ -21,8 +22,7 @@ function App() {
     <Method />
     <Pricing />
     <Testimonials />
-
-    <Footer />
+    <ScrollToTop />
     </>
   )
 }
