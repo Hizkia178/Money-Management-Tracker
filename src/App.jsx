@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
 import Method from './components/Method';
-
+import ScrollToTop from './components/ScrollTopTop';
 import Footer from './components/Footer';
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
     <Hero />
     <Problem />
     <Method />
+    <ScrollToTop />
       <Footer />
     </>
   )
