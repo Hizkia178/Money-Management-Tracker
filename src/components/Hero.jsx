@@ -17,7 +17,7 @@ const Hero = () => {
 
     return (
         <section
-            className="py-5 bg-gradient-to-br from-blue-50 to-indigo min-vh-100 d-flex align-items-center"
+           className="py-5 bg-gradient-to-br from-blue-50 to-indigo min-vh-100 d-flex align-items-center overflow-hidden"
             data-aos="fade-down"
             data-aos-duration="1000"
         >
@@ -113,7 +113,7 @@ const Hero = () => {
                             </div>
 
                             {/* Float Card */}
-                            <div className="position-absolute top-0 end-0 translate-middle-y" data-aos="fade-down" data-aos-delay="1000">
+                            <div className="position-absolute top-0 end-0" data-aos="fade-down" data-aos-delay="1000">
                                 <div className="card shadow border-0 rounded-3 p-3" style={{ width: "140px" }}>
                                     <div className="text-center">
                                         <i className="bx bx-trending-up text-success fs-4"></i>
@@ -123,7 +123,7 @@ const Hero = () => {
                                 </div>
                             </div>
 
-                            <div className="position-absolute bottom-0 start-0 translate-middle-x" data-aos="fade-down" data-aos-delay="1100">
+                            <div className="position-absolute bottom-0 start-0" data-aos="fade-down" data-aos-delay="1100">
                                 <div className="card shadow border-0 rounded-3 p-3" style={{ width: "160px" }}>
                                     <div className="d-flex align-items-center">
                                         <div className="bg-warning bg-opacity-10 rounded-circle p-2 me-2">
