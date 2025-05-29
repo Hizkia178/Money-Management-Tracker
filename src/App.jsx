@@ -8,7 +8,7 @@ import Pricing from './components/Pricing';
 import Testimonials from './components/Testimonials';
 import Method from './components/Method';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollTopTop';
+
 function App() {
   useEffect(() => {
     AOS.init({duration: 1000, once: true});
@@ -21,7 +21,7 @@ function App() {
     <Method />
     <Pricing />
     <Testimonials />
-    <ScrollToTop />
+
     <Footer />
     </>
   )
