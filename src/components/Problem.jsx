@@ -23,7 +23,7 @@ const Problem = () => {
                         <span className="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill mb-3" data-aos="zoom-in" data-aos-delay="200">
                             <i className="bx bx-error-circle me-2"></i>
                             Financial Problems
-                        </span>
+                        </span> 
 
                         <h2 className="display-5 fw-bold text-dark mb-4" data-aos="fade-up" data-aos-delay="300">
                             Money Runs Out Fast, But
@@ -73,7 +73,7 @@ const Problem = () => {
                                     <p className="text-muted small mb-0">{stat.desc}</p>
                                 </div>
                             </div>
-                        );
+                        );  
                     })}
                 </div>
 
@@ -151,7 +151,7 @@ const Problem = () => {
                     <div className="col-lg-6 col-md-12" data-aos="fade-left" data-aos-delay="900">
                         <div className="position-relative">
                             <div className="card border-0 shadow rounded-4 p-4 bg-gradient-to-br from-red-50 to-orange-100">
-                                <div className="text-center mb-4">
+                                <div className="text-center mb-4">  
                                     <div className="bg-danger bg-opacity-10 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style={{ width: '100px', height: '100px' }}>
                                         <i className="bx bx-wallet text-danger" style={{ fontSize: '3rem' }}></i>
                                     </div>
