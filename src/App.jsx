@@ -8,19 +8,21 @@ import Method from './components/Method';
 import ScrollToTop from './components/ScrollTopTop';
 import Footer from './components/Footer';
 import Pricing from './components/Pricing';
+import Testimonials from './components/Testimonials';
 
 function App() {
   useEffect(() => {
-    AOS.init({duration: 1000, once: true});
+    AOS.init({ duration: 1000, once: true });
   }, []);
   return (
     <>
-    <Navbar />
-    <Hero />
-    <Problem />
-    <Method />
-    <Pricing />
-    <ScrollToTop />
+      <Navbar />
+      <Hero />
+      <Problem />
+      <Method />
+      <Pricing />
+      <Testimonials />
+      <ScrollToTop />
       <Footer />
     </>
   )

@@ -94,7 +94,7 @@ const Testimonials = () => {
     };
 
     return (
-        <section className="py-5 bg-white">
+        <section className="py-5 bg-white overflow-hidden">
             <div className="container">
                 <div className="row align-items-center">
 

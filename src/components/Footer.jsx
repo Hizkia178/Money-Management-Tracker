@@ -36,7 +36,7 @@ const Footer = () => {
         <>
            
             
-            <footer className="bg-dark text-white mt-5">
+            <footer className="bg-dark text-white mt-5 overflow-hidden">
                 <div className="container py-5">
                     <div className="row g-4">
                         <div className="col-lg-4 col-md-6">
