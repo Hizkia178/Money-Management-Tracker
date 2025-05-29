@@ -1,20 +1,8 @@
-import { useEffect } from "react";
-import AOS from "aos"; // Import AOS
-import "aos/dist/aos.css"; // Import AOS CSS
-
 const Navbar = () => {
-    // Inisialisasi AOS
-    useEffect(() => {
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
-    }, []);
-
     return (
-        <nav className="navbar navbar-expand-lg fixed-top py-3 bg-white shadow" data-aos="fade-down" data-aos-duration="1000">
+        <nav className="navbar navbar-expand-lg fixed-top py-3 bg-white shadow">
             <div className="container">
-                <a href="#" className="navbar-brand d-flex align-items-center" data-aos="fade-down" data-aos-duration="600">
+                <a href="#" className="navbar-brand d-flex align-items-center">
                     <i className="bx bx-wallet fs-4 me-2"></i>
                     Money Management Tracker
                 </a>
@@ -30,32 +18,32 @@ const Navbar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto d-flex align-items-center" data-aos="fade-down">
+                    <ul className="navbar-nav ms-auto d-flex align-items-center">
                         <li className="nav-item">
-                            <a href="#" className="nav-link active" data-aos-delay="800">
+                            <a href="#" className="nav-link active">
                                 <i className="bx bx-home-alt me-1"></i>
                                 Home
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link" data-aos-delay="700">
+                            <a href="#" className="nav-link">
                                 <i className="bx bx-dollar-circle me-1"></i>
                                 Income
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link" data-aos-delay="600">
+                            <a href="#" className="nav-link">
                                 <i className="bx bx-receipt me-1"></i>
                                 Expenses
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link" data-aos-delay="500">
+                            <a href="#" className="nav-link">
                                 <i className="bx bx-bar-chart-alt-2 me-1"></i>
                                 Reports
                             </a>
                         </li>
-                        <li className="nav-item" data-aos-delay="400">
+                        <li className="nav-item">
                             <a
                                 href="#"
                                 className="btn btn-primary btn-sm ms-lg-3 mt-2 mt-lg-0 d-flex align-items-center shadow-lg justify-content-center"
