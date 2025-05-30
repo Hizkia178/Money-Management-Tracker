@@ -55,7 +55,7 @@ const Hero = () => {
                 <div className="row mb-5">
                     <div className="col-12">
                         <div 
-                            className="bg-white rounded-4 shadow-lg p-4 mb-4 border-0"
+                            className="bg-white rounded-4 shadow p-4 mb-4 border-0"
                             data-aos="fade-down"
                             data-aos-duration="1000"
                         >
@@ -91,7 +91,7 @@ const Hero = () => {
                
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
-                            className="card border-0 shadow-lg h-100 hover-lift"
+                            className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="500"
                             data-bs-toggle="tooltip"
@@ -119,7 +119,7 @@ const Hero = () => {
                 
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
-                            className="card border-0 shadow-lg h-100 hover-lift"
+                            className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="600"
                             data-bs-toggle="tooltip"
@@ -147,7 +147,7 @@ const Hero = () => {
                   
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
-                            className="card border-0 shadow-lg h-100 hover-lift"
+                            className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="700"
                             data-bs-toggle="tooltip"
@@ -175,7 +175,7 @@ const Hero = () => {
                   
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
-                            className="card border-0 shadow-lg h-100 hover-lift"
+                            className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="800"
                             data-bs-toggle="tooltip"
@@ -201,47 +201,7 @@ const Hero = () => {
                     </div>
                 </div>
 
-              
-                <div className="row mt-5">
-                    <div className="col-12">
-                        <div 
-                            className="bg-white rounded-4 shadow-lg p-4 border-0"
-                            data-aos="fade-up"
-                            data-aos-delay="900"
-                        >
-                            <div className="row text-center">
-                                <div className="col-md-3 col-6 mb-3 mb-md-0">
-                                    <div className="d-flex flex-column align-items-center">
-                                        <i className="bx bx-trending-up text-success fs-2 mb-2"></i>
-                                        <h5 className="fw-bold text-success mb-1">+18.2%</h5>
-                                        <small className="text-muted">Growth Rate</small>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-6 mb-3 mb-md-0">
-                                    <div className="d-flex flex-column align-items-center">
-                                        <i className="bx bx-target-lock text-primary fs-2 mb-2"></i>
-                                        <h5 className="fw-bold text-primary mb-1">87%</h5>
-                                        <small className="text-muted">Goal Progress</small>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-6 mb-3 mb-md-0">
-                                    <div className="d-flex flex-column align-items-center">
-                                        <i className="bx bx-time text-warning fs-2 mb-2"></i>
-                                        <h5 className="fw-bold text-warning mb-1">23</h5>
-                                        <small className="text-muted">Days Active</small>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-6">
-                                    <div className="d-flex flex-column align-items-center">
-                                        <i className="bx bx-lock-open-alt text-info fs-2 mb-2"></i>
-                                        <h5 className="fw-bold text-info mb-1">100%</h5>
-                                        <small className="text-muted">Secure</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+         
             </div>
 
             <style jsx>{`
