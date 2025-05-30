@@ -1,13 +1,15 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Hero from "./Hero";
+import Addform from "./Addform";
 
 const Income = () => {
     return (
         <>
-        <Navbar />
-        <Hero />
-        <Footer />
+            <Navbar />
+            <Hero />
+            <Addform />
+            <Footer />
         </>
     )
 };
