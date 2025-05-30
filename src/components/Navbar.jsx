@@ -2,8 +2,11 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    
     const handleClick = async (e) => {
         e.preventDefault();
 
@@ -18,14 +21,12 @@ const Navbar = () => {
         });
 
         if (result.isConfirmed) {
-            Swal.fire({
-                title: "Sorry",
-                text: "This feature is not available yet.",
-                icon: "info",
-                confirmButtonText: "OK",
-            });
+            navigate("/income");
         }
     };
+
+
+
     useEffect(() => {
         AOS.init({
             duration: 1000,
