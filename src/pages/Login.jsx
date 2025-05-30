@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useBootstrapTooltips } from "../functions/Tooltip";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Swal from 'sweetalert2';
+
 
 const Login = () => {
     const navigate = useNavigate();
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -23,25 +22,24 @@ const Login = () => {
         navigate("/signup");
     };
 
-    const handleLoginClick = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
 
-        toast.info("Logging in...", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-        });
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
+        const matchedUser = users.find(
+            (user) => user.email === email && user.password === password
+        );
 
-        setTimeout(() => {
-            navigate('/');
-        }, 3000);
+        if (matchedUser) {
+            Swal.fire("Success", "Login successful!", "success").then(() => {
+                localStorage.setItem("loggedInUser", JSON.stringify(matchedUser));
+                navigate("/");
+            });
+        } else {
+            Swal.fire("Error", "Invalid email or password", "error");
+        }
     };
-
     return (
         <section className="py-5 bg-light min-vh-100 d-flex align-items-center overflow-hidden">
             <div className="container">
@@ -62,7 +60,7 @@ const Login = () => {
                                     </p>
                                 </div>
 
-                                <form>
+                                <form onSubmit={handleLoginSubmit}>
                                     <div className="mb-3" data-aos="fade-up" data-aos-delay="400">
                                         <label htmlFor="email" className="form-label fw-semibold text-dark">
                                             Email
@@ -109,7 +107,6 @@ const Login = () => {
                                             className="btn btn-primary shadow d-flex align-items-center justify-content-center w-100 px-4 animate__animated animate__pulse animate__infinite"
                                             data-bs-toggle="tooltip"
                                             title="Log in to your account"
-                                            onClick={handleLoginClick}   
                                         >
                                             Login
                                             <i className="bx bx-log-in-circle ms-2"></i>
@@ -137,24 +134,23 @@ const Login = () => {
                 </div>
             </div>
 
-            <ToastContainer /> 
             <style>
                 {`
-          .hover-glow:focus {
-            outline: none;
-            border-color: var(--bs-primary) !important;
-            box-shadow: 0 0 8px rgba(13, 110, 253, 0.5) !important;
-          }
-          .animate__pulse {
-            animation-duration: 2s;
-          }
-          .input-group-text {
-            background-color: transparent !important;
-          }
-          .form-control {
-            transition: all 0.3s ease;
-          }
-        `}
+                    .hover-glow:focus {
+                        outline: none;
+                        border-color: var(--bs-primary) !important;
+                        box-shadow: 0 0 8px rgba(13, 110, 253, 0.5) !important;
+                    }
+                    .animate__pulse {
+                        animation-duration: 2s;
+                    }
+                    .input-group-text {
+                        background-color: transparent !important;
+                    }
+                    .form-control {
+                        transition: all 0.3s ease;
+                    }
+                `}
             </style>
         </section>
     );

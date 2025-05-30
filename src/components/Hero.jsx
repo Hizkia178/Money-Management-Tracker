@@ -19,10 +19,15 @@ const Hero = () => {
             cancelButtonText: 'No',
         }).then((result) => {
             if (result.isConfirmed) {
-                navigate('/login');
+                const isLoggedIn = localStorage.getItem('token') !== null;
+
+                if (isLoggedIn) {
+                    navigate('/income');
+                }
             }
         });
     };
+
 
     const handleWatchDemoClick = () => {
         Swal.fire({

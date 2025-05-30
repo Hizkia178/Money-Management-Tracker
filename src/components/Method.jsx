@@ -1,9 +1,28 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import { useBootstrapTooltips } from "../functions/Tooltip";
 
 const Method = () => {
+    const navigate = useNavigate();
+    useBootstrapTooltips();
+    const handleRegisterClick = () => {
+        Swal.fire({
+            title: 'Want to register now?',
+            text: 'You will be redirected to the signup page.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate('/signup');
+            }
+        });
+    };
+
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
     }, []);
@@ -123,7 +142,7 @@ const Method = () => {
                 </div>
 
                 <div className="d-flex flex-column flex-sm-row gap-3 mb-4 justify-content-center" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
-                    <button className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="700" data-bs-toggle="tooltip" title="Get Started Free">
+                    <button className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="700" data-bs-toggle="tooltip" title="Get Started Free" onClick={handleRegisterClick}>
                         <i className="bx bx-rocket me-2"></i>
                         Register Now
                     </button>

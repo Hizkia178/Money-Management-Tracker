@@ -1,42 +1,64 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import 'aos/dist/aos.css';
+import Swal from 'sweetalert2';
 import AOS from 'aos';
 import 'boxicons/css/boxicons.min.css';
 import { useBootstrapTooltips } from "../functions/Tooltip";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const navigate = useNavigate();
 
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+
   useEffect(() => {
     AOS.init({ duration: 800 });
   }, []);
+
+  useBootstrapTooltips();
 
   const goToLogin = (e) => {
     e.preventDefault();
     navigate('/login');
   };
 
-  useBootstrapTooltips();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
 
   const handleSignupClick = (e) => {
     e.preventDefault();
 
-    toast.success("Signing up...", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-    });
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    setTimeout(() => {
+   
+    const emailExists = existingUsers.some(user => user.email === formData.email);
+
+    if (emailExists) {
+      Swal.fire("Error", "Email already registered", "error");
+      return;
+    }
+
+    const newUser = {
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password, 
+    };
+
+    existingUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+
+    Swal.fire("Success", "User registered successfully", "success").then(() => {
       navigate('/login');
-    }, 3000);
+    });
   };
 
   return (
@@ -59,7 +81,7 @@ const Signup = () => {
                   </p>
                 </div>
 
-                <form onSubmit={e => e.preventDefault()}>
+                <form onSubmit={handleSignupClick}>
                   <div className="mb-3" data-aos="fade-up" data-aos-delay="400">
                     <label htmlFor="fullName" className="form-label fw-semibold text-dark">
                       Full Name
@@ -73,6 +95,8 @@ const Signup = () => {
                         className="form-control border-0 shadow-sm hover-glow"
                         id="fullName"
                         placeholder="Enter your full name"
+                        value={formData.fullName}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -91,6 +115,8 @@ const Signup = () => {
                         className="form-control border-0 shadow-sm hover-glow"
                         id="email"
                         placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -109,6 +135,8 @@ const Signup = () => {
                         className="form-control border-0 shadow-sm hover-glow"
                         id="password"
                         placeholder="Enter your password"
+                        value={formData.password}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -120,7 +148,6 @@ const Signup = () => {
                       className="btn btn-primary d-flex align-items-center justify-content-center w-100 shadow px-4 animate__animated animate__pulse animate__infinite"
                       data-bs-toggle="tooltip"
                       title="Create a new account"
-                      onClick={handleSignupClick}
                     >
                       Sign Up
                       <i className="bx bx-user-plus ms-2"></i>
@@ -147,8 +174,6 @@ const Signup = () => {
           </div>
         </div>
       </div>
-
-      <ToastContainer />
 
       <style>
         {`
