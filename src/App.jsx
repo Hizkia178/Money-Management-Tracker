@@ -11,8 +11,11 @@ import Footer from './components/Footer';
 import Pricing from './components/Pricing';
 import Testimonials from './components/Testimonials';
 
-import Login from './pages/Login';   
-import Signup from './pages/Signup';    
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Income from './income/Income';
+import Expenses from './expenses/Expenses';
+import Reports from './reports/Reports';
 
 function App() {
   useEffect(() => {
@@ -38,11 +41,10 @@ function App() {
             </>
           }
         />
-
-      
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/expenses" element={<Expenses />} />
+        <Route path="/income" element={<Income />} />
         <Route path="/login" element={<Login />} />
-
-      
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>

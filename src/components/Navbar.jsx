@@ -54,25 +54,25 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto d-flex align-items-center" data-aos="fade-down">
                         <li className="nav-item">
-                            <a href="#" className="nav-link active" data-aos-delay="800">
+                            <a href="/" className="nav-link active" data-aos-delay="800">
                                 <i className="bx bx-home-alt me-1"></i>
                                 Home
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link" data-aos-delay="700">
+                            <a href="/income" className="nav-link" data-aos-delay="700">
                                 <i className="bx bx-dollar-circle me-1"></i>
                                 Income
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link" data-aos-delay="600">
+                            <a href="/expenses" className="nav-link" data-aos-delay="600">
                                 <i className="bx bx-receipt me-1"></i>
                                 Expenses
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link" data-aos-delay="500">
+                            <a href="/reports" className="nav-link" data-aos-delay="500">
                                 <i className="bx bx-bar-chart-alt-2 me-1"></i>
                                 Reports
                             </a>
