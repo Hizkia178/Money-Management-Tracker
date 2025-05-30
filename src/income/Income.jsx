@@ -1,14 +1,14 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Hero from "./Hero";
-import Addform from "./Addform";
+import Table from "./Table";
 
 const Income = () => {
     return (
         <>
             <Navbar />
             <Hero />
-            <Addform />
+            <Table />
             <Footer />
         </>
     )
