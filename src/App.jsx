@@ -16,6 +16,7 @@ import Signup from './pages/Signup';
 import Income from './income/Income';
 import Expenses from './expenses/Expenses';
 import Reports from './reports/Reports';
+import ProtectedRoute from './middleware/ProtectedRoute';
 
 function App() {
   useEffect(() => {
@@ -41,9 +42,30 @@ function App() {
             </>
           }
         />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/expenses" element={<Expenses />} />
-        <Route path="/income" element={<Income />} />
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <Reports />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/expenses"
+          element={
+            <ProtectedRoute>
+              <Expenses />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/income"
+          element={
+            <ProtectedRoute>
+              <Income />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
