@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useBootstrapTooltips } from "../functions/Tooltip";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
+import { getUsername } from "../auth/getUsername";
 
 const Hero = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [userName] = useState("Hizkia Siahaan"); 
-    
+    const userName = getUsername();
+
     const [financialData] = useState({
         totalIncome: 0,
         monthlyIncome: 0,

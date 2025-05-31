@@ -3,9 +3,12 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate, Link } from "react-router-dom";
+import { getUsername } from "../auth/getUsername";
 
 const Navbar = () => {
     const navigate = useNavigate();
+
+    const userName = getUsername();
 
     let loggedInUser = { fullName: "Guest", email: "Not logged in" };
     try {
@@ -50,6 +53,7 @@ const Navbar = () => {
             confirmButtonColor: "#dc3545",
         });
         if (result.isConfirmed) {
+           
             let users = [];
             try {
                 users = JSON.parse(localStorage.getItem("users")) || [];
@@ -139,7 +143,7 @@ const Navbar = () => {
                                 Reports
                             </Link>
                         </li>
-                        {loggedInUser.email === "Not logged in" ? (
+                        {userName === "Guest" ? (
                             <li className="nav-item" data-aos-delay="400">
                                 <Link to="/login" className="nav-link" data-bs-tooltip="tooltip" title="Log in to your account">
                                     <i className="bx bx-log-in me-1"></i>
@@ -159,7 +163,7 @@ const Navbar = () => {
                                     title="Profile Options"
                                 >
                                     <i className="bx bx-id-card me-1"></i>
-                                    {loggedInUser.fullName}
+                                    {userName}
                                 </a>
                                 <div
                                     className="dropdown-menu dropdown-menu-end border-0 shadow rounded-3 p-3"
@@ -170,10 +174,10 @@ const Navbar = () => {
                                 >
                                     <div className="card border-0">
                                         <div className="card-body p-3">
-                                            <div className="d-flex align-items-center mb-2">
+                                            <div className="d-flex align-items-center mb-2 shadow p-2 rounded-3">
                                                 <i className="bx bx-user-circle fs-4 text-primary me-2"></i>
                                                 <div>
-                                                    <h6 className="fw-bold mb-0">{loggedInUser.fullName}</h6>
+                                                    <h6 className="fw-bold mb-0">{userName}</h6>
                                                     <small className="text-muted">{loggedInUser.email}</small>
                                                 </div>
                                             </div>
