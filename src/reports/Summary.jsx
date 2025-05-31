@@ -2,42 +2,22 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import useCounter from "../functions/useCounter";
 
 
-const useCounter = (target, duration = 2000) => {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        let start = 0;
-        const increment = target / (duration / 16);
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= target) {
-                setCount(target);
-                clearInterval(timer);
-            } else {
-                setCount(Math.floor(start));
-            }
-        }, 16);
-
-        return () => clearInterval(timer);
-    }, [target, duration]);
-
-    return count;
-};
 
 const Summary = () => {
     useEffect(() => {
         AOS.init({ duration: 1000, once: true });
     }, []);
 
-    // Data counters
+
     const totalIncome = useCounter(12500000);
     const totalExpenses = useCounter(8750000);
     const balance = useCounter(3750000);
-    const savingsGoal = useCounter(75); // percentage
+    const savingsGoal = useCounter(75); 
 
-    // Data untuk charts
+
     const monthlyData = [
         { month: 'Jan', income: 10500000, expenses: 7200000 },
         { month: 'Feb', income: 11200000, expenses: 8100000 },
@@ -58,9 +38,9 @@ const Summary = () => {
     const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
 
     return (
-        <section className="py-5 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
-            <div className="container">
-                {/* Header */}
+        <section className="py-5 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidde min-vh-100">
+            <div className="container" style={{paddingTop : '80px'}}>
+             
                 <div className="row justify-content-center mb-5" data-aos="fade-up">
                     <div className="col-lg-8 text-center">
                         <span className="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3" data-aos="zoom-in" data-aos-delay="200">
@@ -80,7 +60,7 @@ const Summary = () => {
                     </div>
                 </div>
 
-                {/* Summary Cards */}
+              
                 <div className="row g-4 mb-5">
                     {[
                         {
@@ -136,9 +116,9 @@ const Summary = () => {
                     ))}
                 </div>
 
-                {/* Charts Section */}
+              
                 <div className="row g-4">
-                    {/* Monthly Comparison Chart */}
+                 
                     <div className="col-lg-8" data-aos="fade-right" data-aos-delay="800">
                         <div className="card border-0 shadow h-100">
                             <div className="card-header bg-white border-0 pb-0">
@@ -171,7 +151,7 @@ const Summary = () => {
                         </div>
                     </div>
 
-                    {/* Expense Categories Pie Chart */}
+                   
                     <div className="col-lg-4" data-aos="fade-left" data-aos-delay="900">
                         <div className="card border-0 shadow h-100">
                             <div className="card-header bg-white border-0 pb-0">
@@ -205,7 +185,7 @@ const Summary = () => {
                                     </PieChart>
                                 </ResponsiveContainer>
                                 
-                                {/* Legend */}
+                              
                                 <div className="mt-3">
                                     {categoryData.map((category, index) => (
                                         <div key={index} className="d-flex align-items-center justify-content-between mb-2">
@@ -231,7 +211,7 @@ const Summary = () => {
                     </div>
                 </div>
 
-                {/* Quick Stats */}
+              
                 <div className="row mt-5" data-aos="fade-up" data-aos-delay="1000">
                     <div className="col-12">
                         <div className="card border-0 shadow bg-gradient-to-r from-purple-500 to-pink-500 text-dark">

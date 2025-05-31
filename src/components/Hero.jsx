@@ -5,13 +5,30 @@ import { useNavigate } from 'react-router-dom';
 import { useBootstrapTooltips } from "../functions/Tooltip";
 import "aos/dist/aos.css";
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
     const navigate = useNavigate();
     useBootstrapTooltips();
 
 
+    const handleGetStartedClick = async (e) => {
+        e.preventDefault();
+
+        const result = await Swal.fire({
+            title: "Get Started Free",
+            text: "Do you want to get started for free?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            reverseButtons: true,
+        });
+
+        if (result.isConfirmed) {
+            navigate("/income");
+        }
+    };
     const handleWatchDemoClick = () => {
         Swal.fire({
             title: 'Do you want to watch the demo?',
@@ -68,10 +85,18 @@ const Hero = () => {
                             </p>
 
                             <div className="d-flex flex-column flex-sm-row gap-3 mb-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
-                                <Link to="/income" className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg">
+                                <a
+                                    href="#"
+                                    className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg d-flex align-items-center justify-content-center"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Get Started Free"
+                                    onClick={handleGetStartedClick}
+                                >
                                     <i className="bx bx-rocket me-2"></i>
                                     Get Started Free
-                                </Link>
+                                </a>
+
 
                                 <button className="btn btn-outline-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="800" data-bs-toggle="tooltip" title="Watch Demo" onClick={handleWatchDemoClick}>
                                     <i className="bx bx-play-circle me-2"></i>
