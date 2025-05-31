@@ -3,10 +3,11 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    
+
     const handleClick = async (e) => {
         e.preventDefault();
 
@@ -55,28 +56,28 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto d-flex align-items-center" data-aos="fade-down">
                         <li className="nav-item">
-                            <a href="/" className="nav-link active" data-aos-delay="800">
+                            <Link to="/" className="nav-link active" data-aos-delay="800">
                                 <i className="bx bx-home-alt me-1"></i>
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="/income" className="nav-link" data-aos-delay="700">
+                            <Link to="/income" className="nav-link" data-aos-delay="700">
                                 <i className="bx bx-dollar-circle me-1"></i>
                                 Income
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="/expenses" className="nav-link" data-aos-delay="600">
+                            <Link to="/expenses" className="nav-link" data-aos-delay="600">
                                 <i className="bx bx-receipt me-1"></i>
                                 Expenses
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="/reports" className="nav-link" data-aos-delay="500">
+                            <Link to="/reports" className="nav-link" data-aos-delay="500">
                                 <i className="bx bx-bar-chart-alt-2 me-1"></i>
                                 Reports
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item" data-aos-delay="400">
                             <a

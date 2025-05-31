@@ -194,19 +194,6 @@ const HeroExpenses = () => {
                     </div>
                 </div>
             </div>
-
-            <style jsx>{`
-                .hover-lift {
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                }
-                .hover-lift:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
-                }
-                .bg-gradient-to-br {
-                    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-                }
-            `}</style>
         </section>
     );
 };
