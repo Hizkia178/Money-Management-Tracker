@@ -20,6 +20,30 @@ const Navbar = () => {
         console.error("Error parsing loggedInUser from localStorage:", error);
     }
 
+    const handleClearLocalStorage = () => {
+        Swal.fire({
+            title: 'Are you sure you want to delete all data?',
+            text: "All data in localStorage will be permanently deleted!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete all!',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.clear();
+                Swal.fire(
+                    'Deleted!',
+                    'All localStorage data has been deleted.',
+                    'success'
+                ).then(() => {
+                    window.location.reload();
+                });
+            }
+        });
+    };
+
     const handleClick = async (e) => {
         e.preventDefault();
         const result = await Swal.fire({
@@ -53,7 +77,7 @@ const Navbar = () => {
             confirmButtonColor: "#dc3545",
         });
         if (result.isConfirmed) {
-           
+
             let users = [];
             try {
                 users = JSON.parse(localStorage.getItem("users")) || [];
@@ -191,6 +215,17 @@ const Navbar = () => {
                                                 <i className="bx bx-trash me-1"></i>
                                                 Delete Account
                                             </button>
+
+                                            <button
+                                                className="btn btn-outline-warning w-100 rounded-3 mb-2"
+                                                onClick={handleClearLocalStorage}
+                                                data-bs-tooltip="tooltip"
+                                                title="Clear all localStorage data"
+                                            >
+                                                <i className="bx bx-trash me-1"></i>
+                                                Delete All Data
+                                            </button>
+
                                             <button
                                                 className="btn btn-outline-primary w-100 rounded-3"
                                                 onClick={handleLogout}
@@ -200,6 +235,7 @@ const Navbar = () => {
                                                 <i className="bx bx-log-out me-1"></i>
                                                 Logout
                                             </button>
+
                                         </div>
                                     </div>
                                 </div>

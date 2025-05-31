@@ -15,7 +15,6 @@ const Footer = () => {
             offset: 100
         });
 
-        // Geolocation API to get user's coordinates
         const getUserLocation = () => {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
