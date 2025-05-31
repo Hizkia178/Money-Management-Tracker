@@ -98,8 +98,8 @@ const HeroExpenses = () => {
     };
 
     return (
-        <section className="py-5 min-vh-100">
-            <div className="container" style={{ paddingTop: "100px" }}>
+        <section className="py-5">
+            <div className="container" style={{ paddingTop: "60px" }}>
                 <div className="row mb-5">
                     <div className="col-12">
                         <div 

@@ -12,8 +12,8 @@ const Hero = () => {
     useBootstrapTooltips();
 
     useEffect(() => {
-        AOS.init({ 
-            duration: 1000, 
+        AOS.init({
+            duration: 1000,
             once: true,
             offset: 100
         });
@@ -48,9 +48,9 @@ const Hero = () => {
             .filter(t => t.type === "income")
             .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
         monthlyIncome: transactions
-            .filter(t => t.type === "income" && 
-                        new Date(t.date).getMonth() === currentTime.getMonth() && 
-                        new Date(t.date).getFullYear() === currentTime.getFullYear())
+            .filter(t => t.type === "income" &&
+                new Date(t.date).getMonth() === currentTime.getMonth() &&
+                new Date(t.date).getFullYear() === currentTime.getFullYear())
             .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
         averageIncome: (() => {
             const incomeByMonth = transactions
@@ -90,15 +90,15 @@ const Hero = () => {
     };
 
     const getCurrentMonth = () => {
-        return currentTime.toLocaleString('default', { month: 'long' });
+        return currentTime.toLocaleString('id-ID', { month: 'long' });
     };
 
     return (
-        <section className="py-5 min-vh-100">
-            <div className="container" style={{ paddingTop: "100px" }}>
+        <section className="py-5">
+            <div className="container" style={{ paddingTop: "60px" }}>
                 <div className="row mb-5">
                     <div className="col-12">
-                        <div 
+                        <div
                             className="bg-white rounded-4 shadow p-4 mb-4 border-0"
                             data-aos="fade-down"
                             data-aos-duration="1000"
@@ -116,11 +116,11 @@ const Hero = () => {
                                     <div className="d-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-3 py-2">
                                         <i className="bx bx-calendar text-primary me-2"></i>
                                         <span className="text-primary fw-semibold">
-                                            {currentTime.toLocaleDateString('en-US', { 
-                                                weekday: 'long', 
-                                                year: 'numeric', 
-                                                month: 'long', 
-                                                day: 'numeric' 
+                                            {currentTime.toLocaleDateString('id-ID', {
+                                                weekday: 'long',
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric'
                                             })}
                                         </span>
                                     </div>
@@ -132,7 +132,7 @@ const Hero = () => {
 
                 <div className="row g-4 mb-5">
                     <div className="col-xl-4 col-lg-6 col-md-6 col-12">
-                        <div 
+                        <div
                             className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="500"
@@ -159,7 +159,7 @@ const Hero = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-md-6 col-12">
-                        <div 
+                        <div
                             className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="600"
@@ -186,7 +186,7 @@ const Hero = () => {
                     </div>
 
                     <div className="col-xl-4 col-lg-6 col-md-6 col-12">
-                        <div 
+                        <div
                             className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="700"
