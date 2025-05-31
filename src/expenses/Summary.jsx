@@ -108,7 +108,8 @@ const Summary = ({ filteredTransactions, formatCurrency }) => {
                                             Transaction Type
                                         </label>
                                         <select className="form-select" required>
-                                            <option value="expense" selected>Expense</option>
+                                            <option value="">Select Type</option>
+                                            <option value="expense">Expense</option>
                                         </select>
                                     </div>
                                     <div className="col-md-6">
