@@ -38,7 +38,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg fixed-top py-3 bg-white shadow" data-aos="fade-down" data-aos-duration="1000">
             <div className="container">
-                <a href="#" className="navbar-brand d-flex align-items-center" data-aos="fade-down" data-aos-duration="600">
+                <a href="#" className="navbar-brand d-flex align-items-center text-primary" data-aos="fade-down" data-aos-duration="600">
                     <i className="bx bx-wallet fs-4 me-2"></i>
                     Money Management Tracker
                 </a>

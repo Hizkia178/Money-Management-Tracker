@@ -7,12 +7,11 @@ const Hero = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [userName] = useState("John Doe"); 
     
-  
     const [financialData] = useState({
-        totalIncome: 8450,
-        monthlyIncome: 3200,
-        highestResource: "Freelance Work",
-        averageIncome: 2840
+        totalIncome: 0,
+        monthlyIncome: 0,
+        highestResource: "",
+        averageIncome: 0
     });
 
     useBootstrapTooltips();
@@ -41,7 +40,7 @@ const Hero = () => {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD'
-        }).format(amount);
+        }).format(amount || 0);
     };
 
     const getCurrentMonth = () => {
@@ -49,9 +48,8 @@ const Hero = () => {
     };
 
     return (
-        <section className="py-5  min-vh-100">
+        <section className="py-5 min-vh-100">
             <div className="container" style={{ paddingTop: "100px" }}>
-            
                 <div className="row mb-5">
                     <div className="col-12">
                         <div 
@@ -86,9 +84,7 @@ const Hero = () => {
                     </div>
                 </div>
 
-               
                 <div className="row g-4 mb-5">
-               
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
@@ -104,7 +100,7 @@ const Hero = () => {
                                     </div>
                                     <div className="badge bg-success bg-opacity-10 text-success">
                                         <i className="bx bx-trending-up me-1"></i>
-                                        +12.5%
+                                        +0%
                                     </div>
                                 </div>
                                 <h3 className="fw-bold text-primary mb-1">
@@ -116,7 +112,6 @@ const Hero = () => {
                         </div>
                     </div>
 
-                
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
@@ -144,7 +139,6 @@ const Hero = () => {
                         </div>
                     </div>
 
-                  
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
@@ -164,15 +158,14 @@ const Hero = () => {
                                     </div>
                                 </div>
                                 <h3 className="fw-bold text-warning mb-1">
-                                    {formatCurrency(1850)}
+                                    {formatCurrency(0)}
                                 </h3>
                                 <p className="text-muted mb-0 fw-medium">Highest Resource</p>
-                                <small className="text-muted">{financialData.highestResource}</small>
+                                <small className="text-muted">{financialData.highestResource || "None"}</small>
                             </div>
                         </div>
                     </div>
 
-                  
                     <div className="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
@@ -200,10 +193,7 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-
-         
             </div>
-
         </section>
     );
 };

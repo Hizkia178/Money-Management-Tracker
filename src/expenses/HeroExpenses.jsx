@@ -8,10 +8,10 @@ const HeroExpenses = () => {
     const [userName] = useState("John Doe");
 
     const [financialData] = useState({
-        totalExpenses: 6200,
-        monthlyExpenses: 1800,
-        highestCategory: "Dining Out",
-        averageExpenses: 1550
+        totalExpenses: 0,
+        monthlyExpenses: 0,
+        highestCategory: "",
+        averageExpenses: 0
     });
 
     useBootstrapTooltips();
@@ -100,7 +100,7 @@ const HeroExpenses = () => {
                                     </div>
                                     <div className="badge bg-danger bg-opacity-10 text-danger">
                                         <i className="bx bx-trending-down me-1"></i>
-                                        +8.3%
+                                        +0%
                                     </div>
                                 </div>
                                 <h3 className="fw-bold text-danger mb-1">
@@ -158,10 +158,10 @@ const HeroExpenses = () => {
                                     </div>
                                 </div>
                                 <h3 className="fw-bold text-secondary mb-1">
-                                    {formatCurrency(650)}
+                                    {formatCurrency(0)}
                                 </h3>
                                 <p className="text-muted mb-0 fw-medium">Highest Category</p>
-                                <small className="text-muted">{financialData.highestCategory}</small>
+                                <small className="text-muted">{financialData.highestCategory || "None"}</small>
                             </div>
                         </div>
                     </div>
