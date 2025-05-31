@@ -6,29 +6,74 @@ import { getUsername } from "../auth/getUsername";
 
 const Hero = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [transactions, setTransactions] = useState([]);
     const userName = getUsername();
-
-    const [financialData] = useState({
-        totalIncome: 0,
-        monthlyIncome: 0,
-        highestResource: "",
-        averageIncome: 0
-    });
 
     useBootstrapTooltips();
 
+ 
     useEffect(() => {
         AOS.init({ 
             duration: 1000, 
             once: true,
             offset: 100
         });
+
+        const loadTransactions = () => {
+            try {
+                const storedTransactions = localStorage.getItem("transactions");
+                if (storedTransactions) {
+                    const parsed = JSON.parse(storedTransactions);
+                    setTransactions(parsed.filter(t => t.date && !isNaN(new Date(t.date).getTime())));
+                }
+            } catch (error) {
+                console.error("Error loading transactions from localStorage:", error);
+            }
+        };
+
+        loadTransactions();
+        window.addEventListener("storage", loadTransactions);
+        return () => window.removeEventListener("storage", loadTransactions);
+    }, []);
+
+
+    useEffect(() => {
         const timer = setInterval(() => {
             setCurrentTime(new Date());
         }, 60000);
 
         return () => clearInterval(timer);
     }, []);
+
+    const financialData = {
+        totalIncome: transactions
+            .filter(t => t.type === "income")
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
+        monthlyIncome: transactions
+            .filter(t => t.type === "income" && 
+                        new Date(t.date).getMonth() === currentTime.getMonth() && 
+                        new Date(t.date).getFullYear() === currentTime.getFullYear())
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
+        averageIncome: (() => {
+            const incomeByMonth = transactions
+                .filter(t => t.type === "income")
+                .reduce((acc, t) => {
+                    const date = new Date(t.date);
+                    if (!isNaN(date.getTime())) {
+                        const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
+                        acc[monthKey] = (acc[monthKey] || 0) + (parseFloat(t.amount) || 0);
+                        return acc;
+                    }
+                    return acc;
+                }, {});
+            const monthlySums = Object.values(incomeByMonth);
+            console.log("Income by month:", incomeByMonth);
+            console.log("Monthly sums:", monthlySums);
+            return monthlySums.length > 0 ? monthlySums.reduce((sum, val) => sum + val, 0) / monthlySums.length : 0;
+        })()
+    };
+
+    console.log("Financial Data:", financialData);
 
     const getGreeting = () => {
         const hour = currentTime.getHours();
@@ -86,7 +131,7 @@ const Hero = () => {
                 </div>
 
                 <div className="row g-4 mb-5">
-                    <div className="col-xl-3 col-lg-6 col-md-6 col-12">
+                    <div className="col-xl-4 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
@@ -113,7 +158,7 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    <div className="col-xl-3 col-lg-6 col-md-6 col-12">
+                    <div className="col-xl-4 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
@@ -140,38 +185,11 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    <div className="col-xl-3 col-lg-6 col-md-6 col-12">
+                    <div className="col-xl-4 col-lg-6 col-md-6 col-12">
                         <div 
                             className="card border-0 shadow h-100 hover-lift"
                             data-aos="fade-up"
                             data-aos-delay="700"
-                            data-bs-toggle="tooltip"
-                            title="Your most profitable income source"
-                        >
-                            <div className="card-body p-4">
-                                <div className="d-flex align-items-center justify-content-between mb-3">
-                                    <div className="bg-warning bg-opacity-15 rounded-circle p-3">
-                                        <i className="bx bx-crown text-warning fs-3"></i>
-                                    </div>
-                                    <div className="badge bg-warning bg-opacity-10 text-warning">
-                                        <i className="bx bx-star me-1"></i>
-                                        Top Source
-                                    </div>
-                                </div>
-                                <h3 className="fw-bold text-warning mb-1">
-                                    {formatCurrency(0)}
-                                </h3>
-                                <p className="text-muted mb-0 fw-medium">Highest Resource</p>
-                                <small className="text-muted">{financialData.highestResource || "None"}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-xl-3 col-lg-6 col-md-6 col-12">
-                        <div 
-                            className="card border-0 shadow h-100 hover-lift"
-                            data-aos="fade-up"
-                            data-aos-delay="800"
                             data-bs-toggle="tooltip"
                             title="Your average monthly income"
                         >
