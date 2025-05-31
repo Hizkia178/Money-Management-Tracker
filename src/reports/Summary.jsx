@@ -38,7 +38,7 @@ const Summary = () => {
     const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
 
     return (
-        <section className="py-5 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidde min-vh-100">
+        <section className="py-5 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidde min-vh-100 overflow-hidden">
             <div className="container" style={{paddingTop : '80px'}}>
              
                 <div className="row justify-content-center mb-5" data-aos="fade-up">
