@@ -207,7 +207,6 @@ const Summary = ({ formatCurrency }) => {
                                         >
                                             <option value="">Select Type</option>
                                             <option value="income">Income</option>
-                                            <option value="expense">Expense</option>
                                         </select>
                                     </div>
                                     <div className="col-md-6">
