@@ -1,70 +1,132 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Swal from "sweetalert2";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import useCounter from "../functions/useCounter";
-
-
 
 const Summary = () => {
+    const [transactions, setTransactions] = useState([]);
+    const [currentTime] = useState(new Date());
+
     useEffect(() => {
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 1000, once: true, offset: 50 });
+
+        const loadTransactions = () => {
+            try {
+                const storedTransactions = localStorage.getItem("transactions");
+                if (storedTransactions) {
+                    const parsed = JSON.parse(storedTransactions).filter(t => t.date && !isNaN(new Date(t.date).getTime()));
+                    setTransactions(parsed);
+                }
+            } catch (error) {
+                console.error("Error loading transactions from localStorage:", error);
+                Swal.fire("Error", "Failed to load transactions.", "error");
+            }
+        };
+
+        loadTransactions();
+        window.addEventListener("storage", loadTransactions);
+        return () => window.removeEventListener("storage", loadTransactions);
     }, []);
 
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        }).format(amount || 0);
+    };
 
-    const totalIncome = useCounter(12500000);
-    const totalExpenses = useCounter(8750000);
-    const balance = useCounter(3750000);
-    const savingsGoal = useCounter(75); 
+    const calculateTotals = () => {
+        const totalIncome = transactions
+            .filter(t => t.type === 'income')
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+        const totalExpense = transactions
+            .filter(t => t.type === 'expense')
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+        return { totalIncome, totalExpense, balance: totalIncome - totalExpense };
+    };
+
+    const { totalIncome, totalExpense, balance } = calculateTotals();
+
+  
+    const getLastSixMonths = () => {
+        const months = [];
+        for (let i = 5; i >= 0; i--) {
+            const date = new Date(currentTime.getFullYear(), currentTime.getMonth() - i, 1);
+            months.push({
+                month: date.toLocaleString('id-ID', { month: 'short' }),
+                year: date.getFullYear(),
+                monthIndex: date.getMonth()
+            });
+        }
+        return months;
+    };
+
+    const monthlyData = getLastSixMonths().map(({ month, year, monthIndex }) => ({
+        month,
+        income: transactions
+            .filter(t => 
+                t.type === 'income' &&
+                new Date(t.date).getMonth() === monthIndex && 
+                new Date(t.date).getFullYear() === year)
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
+        expenses: transactions
+            .filter(t => 
+                t.type === 'expense' &&
+                new Date(t.date).getMonth() === monthIndex && 
+                new Date(t.date).getFullYear() === year)
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0)
+    }));
+
+  
+    const categoryData = (() => {
+        const categorySums = transactions
+            .filter(t => 
+                new Date(t.date).getMonth() === currentTime.getMonth() && 
+                new Date(t.date).getFullYear() === currentTime.getFullYear())
+            .reduce((acc, t) => {
+                const category = t.category || 'Other';
+                const key = `${t.type === 'income' ? 'Income' : 'Expense'}: ${category}`;
+                acc[key] = (acc[key] || 0) + (parseFloat(t.amount) || 0);
+                return acc;
+            }, {});
+        return Object.entries(categorySums).map(([name, value], index) => ({
+            name: name.charAt(0).toUpperCase() + name.slice(1),
+            value,
+            color: ['#34D399', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'][index % 6]
+        }));
+    })();
+
+    const COLORS = ['#34D399', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
 
 
-    const monthlyData = [
-        { month: 'Jan', income: 10500000, expenses: 7200000 },
-        { month: 'Feb', income: 11200000, expenses: 8100000 },
-        { month: 'Mar', income: 10800000, expenses: 7800000 },
-        { month: 'Apr', income: 12000000, expenses: 8500000 },
-        { month: 'Mei', income: 11800000, expenses: 8200000 },
-        { month: 'Jun', income: 12500000, expenses: 8750000 },
-    ];
-
-    const categoryData = [
-        { name: 'Makanan & Minuman', value: 3200000, color: '#FF6B6B' },
-        { name: 'Transportasi', value: 2100000, color: '#4ECDC4' },
-        { name: 'Belanja', value: 1800000, color: '#45B7D1' },
-        { name: 'Hiburan', value: 950000, color: '#FFA07A' },
-        { name: 'Tagihan', value: 700000, color: '#98D8C8' },
-    ];
-
-    const COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
+  
 
     return (
-        <section className="py-5 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidde min-vh-100 overflow-hidden">
-            <div className="container" style={{paddingTop : '80px'}}>
-             
+        <section className="py-5 bg-gradient-to-br from-red-50 to-orange-100 overflow-hidden min-vh-100">
+            <div className="container" style={{paddingTop: '80px'}}>
                 <div className="row justify-content-center mb-5" data-aos="fade-up">
                     <div className="col-lg-8 text-center">
-                        <span className="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-3" data-aos="zoom-in" data-aos-delay="200">
-                            <i className="bx bx-line-chart me-2"></i>
+                        <span className="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill mb-3" data-aos="zoom-in" data-aos-delay="200">
+                            <i className="bx bx-wallet me-2"></i>
                             Financial Summary
                         </span>
-
                         <h2 className="display-5 fw-bold text-dark mb-4" data-aos="fade-up" data-aos-delay="300">
-                            Your Money at a 
-                            <span className="text-primary"> Glance</span>
+                            Your Finances at a 
+                            <span className="text-danger"> Glance</span>
                         </h2>
-
                         <p className="lead text-muted mb-4" data-aos="fade-up" data-aos-delay="400">
-                            Track your financial progress with clear insights and visual reports.
-                            See where your money comes from and where it goes.
+                            Track your income and expense patterns with clear insights and visual reports.
                         </p>
                     </div>
                 </div>
 
-              
                 <div className="row g-4 mb-5">
                     {[
                         {
-                            icon: "bx-plus-circle",
+                            icon: "bx-trending-up",
                             title: "Total Income",
                             amount: totalIncome,
                             color: "success",
@@ -72,19 +134,19 @@ const Summary = () => {
                             delay: 500
                         },
                         {
-                            icon: "bx-minus-circle", 
+                            icon: "bx-trending-down",
                             title: "Total Expenses",
-                            amount: totalExpenses,
+                            amount: totalExpense,
                             color: "danger",
                             bgGradient: "from-red-400 to-rose-500",
                             delay: 600
                         },
                         {
                             icon: "bx-wallet",
-                            title: "Current Balance",
+                            title: "Balance",
                             amount: balance,
-                            color: "primary",
-                            bgGradient: "from-blue-400 to-indigo-500",
+                            color: balance >= 0 ? "success" : "danger",
+                            bgGradient: balance >= 0 ? "from-green-400 to-emerald-500" : "from-red-400 to-rose-500",
                             delay: 700
                         }
                     ].map((item, index) => (
@@ -97,38 +159,25 @@ const Summary = () => {
                                     </div>
                                     <h6 className="text-muted mb-2">{item.title}</h6>
                                     <h3 className={`text-${item.color} fw-bold mb-0`}>
-                                        Rp {item.amount.toLocaleString('id-ID')}
+                                        {formatCurrency(item.amount)}
                                     </h3>
-                                    {index === 2 && (
-                                        <div className="mt-3">
-                                            <div className="progress" style={{ height: '8px' }}>
-                                                <div 
-                                                    className="progress-bar bg-primary" 
-                                                    style={{ width: `${savingsGoal}%` }}
-                                                ></div>
-                                            </div>
-                                            <small className="text-muted mt-1 d-block">{savingsGoal}% of savings goal</small>
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
 
-              
                 <div className="row g-4">
-                 
                     <div className="col-lg-8" data-aos="fade-right" data-aos-delay="800">
                         <div className="card border-0 shadow h-100">
                             <div className="card-header bg-white border-0 pb-0">
                                 <div className="d-flex align-items-center">
-                                    <div className="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
-                                        <i className="bx bx-bar-chart text-primary fs-4"></i>
+                                    <div className="bg-danger bg-opacity-10 rounded-circle p-2 me-3">
+                                        <i className="bx bx-bar-chart text-danger fs-4"></i>
                                     </div>
                                     <div>
-                                        <h5 className="mb-0 fw-bold">Monthly Income vs Expenses</h5>
-                                        <small className="text-muted">Last 6 months comparison</small>
+                                        <h5 className="mb-0 fw-bold">Monthly Income & Expenses</h5>
+                                        <small className="text-muted">Last 6 months overview</small>
                                     </div>
                                 </div>
                             </div>
@@ -139,11 +188,11 @@ const Summary = () => {
                                         <XAxis dataKey="month" tick={{ fontSize: 12 }} />
                                         <YAxis tick={{ fontSize: 12 }} tickFormatter={(value) => `${(value/1000000).toFixed(1)}M`} />
                                         <Tooltip 
-                                            formatter={(value) => [`Rp ${value.toLocaleString('id-ID')}`, '']}
+                                            formatter={(value, name) => [formatCurrency(value), name]}
                                             labelStyle={{ color: '#666' }}
                                         />
                                         <Legend />
-                                        <Bar dataKey="income" fill="#10B981" name="Income" radius={[4, 4, 0, 0]} />
+                                        <Bar dataKey="income" fill="#34D399" name="Income" radius={[4, 4, 0, 0]} />
                                         <Bar dataKey="expenses" fill="#EF4444" name="Expenses" radius={[4, 4, 0, 0]} />
                                     </BarChart>
                                 </ResponsiveContainer>
@@ -151,7 +200,6 @@ const Summary = () => {
                         </div>
                     </div>
 
-                   
                     <div className="col-lg-4" data-aos="fade-left" data-aos-delay="900">
                         <div className="card border-0 shadow h-100">
                             <div className="card-header bg-white border-0 pb-0">
@@ -160,7 +208,7 @@ const Summary = () => {
                                         <i className="bx bx-pie-chart text-warning fs-4"></i>
                                     </div>
                                     <div>
-                                        <h5 className="mb-0 fw-bold">Expense Categories</h5>
+                                        <h5 className="mb-0 fw-bold">Transaction Categories</h5>
                                         <small className="text-muted">This month breakdown</small>
                                     </div>
                                 </div>
@@ -181,11 +229,9 @@ const Summary = () => {
                                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                             ))}
                                         </Pie>
-                                        <Tooltip formatter={(value) => `Rp ${value.toLocaleString('id-ID')}`} />
+                                        <Tooltip formatter={(value) => formatCurrency(value)} />
                                     </PieChart>
                                 </ResponsiveContainer>
-                                
-                              
                                 <div className="mt-3">
                                     {categoryData.map((category, index) => (
                                         <div key={index} className="d-flex align-items-center justify-content-between mb-2">
@@ -195,13 +241,13 @@ const Summary = () => {
                                                     style={{ 
                                                         width: '12px', 
                                                         height: '12px', 
-                                                        backgroundColor: COLORS[index] 
+                                                        backgroundColor: COLORS[index % COLORS.length] 
                                                     }}
                                                 ></div>
                                                 <small className="text-muted">{category.name}</small>
                                             </div>
                                             <small className="fw-semibold">
-                                                {((category.value / totalExpenses) * 100).toFixed(1)}%
+                                                {(totalIncome + totalExpense) > 0 ? ((category.value / (totalIncome + totalExpense)) * 100).toFixed(1) : 0}%
                                             </small>
                                         </div>
                                     ))}
@@ -211,37 +257,7 @@ const Summary = () => {
                     </div>
                 </div>
 
-              
-                <div className="row mt-5" data-aos="fade-up" data-aos-delay="1000">
-                    <div className="col-12">
-                        <div className="card border-0 shadow bg-gradient-to-r from-purple-500 to-pink-500 text-dark">
-                            <div className="card-body p-4">
-                                <div className="row text-center">
-                                    <div className="col-md-3 col-6 mb-3 mb-md-0">
-                                        <i className="bx bx-trending-up fs-2 mb-2"></i>
-                                        <h4 className="fw-bold mb-1">+15%</h4>
-                                        <small className="opacity-75">Income Growth</small>
-                                    </div>
-                                    <div className="col-md-3 col-6 mb-3 mb-md-0">
-                                        <i className="bx bx-target-lock fs-2 mb-2"></i>
-                                        <h4 className="fw-bold mb-1">8/10</h4>
-                                        <small className="opacity-75">Goals Achieved</small>
-                                    </div>
-                                    <div className="col-md-3 col-6">
-                                        <i className="bx bx-time fs-2 mb-2"></i>
-                                        <h4 className="fw-bold mb-1">25</h4>
-                                        <small className="opacity-75">Days Left in Month</small>
-                                    </div>
-                                    <div className="col-md-3 col-6">
-                                        <i className="bx bx-star fs-2 mb-2"></i>
-                                        <h4 className="fw-bold mb-1">Excellent</h4>
-                                        <small className="opacity-75">Financial Health</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
         </section>
     );

@@ -84,6 +84,7 @@ import { useEffect, useState } from "react";
             types: [
                 { value: 'all', label: 'All Types', icon: 'bx-list-ul' },
                 { value: 'income', label: 'Income', icon: 'bx-trending-up' },
+                 { value: 'expense', label: 'Expense', icon: 'bx-trending-down' }
             ],
             categories: [
                 { value: 'all', label: 'All Categories', icon: 'bx-category' },

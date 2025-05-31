@@ -6,14 +6,8 @@ import { getUsername } from "../auth/getUsername";
 
 const HeroExpenses = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [transactions, setTransactions] = useState([]);
     const userName = getUsername();
-
-    const [financialData] = useState({
-        totalExpenses: 0,
-        monthlyExpenses: 0,
-        highestCategory: "",
-        averageExpenses: 0
-    });
 
     useBootstrapTooltips();
 
@@ -23,12 +17,65 @@ const HeroExpenses = () => {
             once: true,
             offset: 100
         });
+
+        const loadTransactions = () => {
+            try {
+                const storedTransactions = localStorage.getItem("transactions");
+                if (storedTransactions) {
+                    const parsed = JSON.parse(storedTransactions).filter(t => t.type === 'expense' && t.date && !isNaN(new Date(t.date).getTime()));
+                    setTransactions(parsed);
+                }
+            } catch (error) {
+                console.error("Error loading transactions from localStorage:", error);
+            }
+        };
+
+        loadTransactions();
+        window.addEventListener("storage", loadTransactions);
+        return () => window.removeEventListener("storage", loadTransactions);
+    }, []);
+
+    useEffect(() => {
         const timer = setInterval(() => {
             setCurrentTime(new Date());
         }, 60000);
 
         return () => clearInterval(timer);
     }, []);
+
+    const financialData = {
+        totalExpenses: transactions
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
+        monthlyExpenses: transactions
+            .filter(t => 
+                new Date(t.date).getMonth() === currentTime.getMonth() && 
+                new Date(t.date).getFullYear() === currentTime.getFullYear())
+            .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0),
+        highestCategory: (() => {
+            const categorySums = transactions
+                .reduce((acc, t) => {
+                    acc[t.category] = (acc[t.category] || 0) + (parseFloat(t.amount) || 0);
+                    return acc;
+                }, {});
+            const maxCategory = Object.entries(categorySums).reduce((max, [category, amount]) => 
+                amount > (max.amount || 0) ? { category, amount } : max, {});
+            return maxCategory.category || "None";
+        })(),
+        averageExpenses: (() => {
+            const expenseByMonth = transactions
+                .reduce((acc, t) => {
+                    const date = new Date(t.date);
+                    if (!isNaN(date.getTime())) {
+                        const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
+                        acc[monthKey] = (acc[monthKey] || 0) + (parseFloat(t.amount) || 0);
+                        return acc;
+                    }
+                    return acc;
+                }, {});
+            const monthlySums = Object.values(expenseByMonth);
+            return monthlySums.length > 0 ? monthlySums.reduce((sum, val) => sum + val, 0) / monthlySums.length : 0;
+        })()
+    };
 
     const getGreeting = () => {
         const hour = currentTime.getHours();
@@ -38,14 +85,16 @@ const HeroExpenses = () => {
     };
 
     const formatCurrency = (amount) => {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('id-ID', {
             style: 'currency',
-            currency: 'USD'
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
         }).format(amount || 0);
     };
 
     const getCurrentMonth = () => {
-        return currentTime.toLocaleString('default', { month: 'long' });
+        return currentTime.toLocaleString('id-ID', { month: 'long' });
     };
 
     return (
@@ -71,7 +120,7 @@ const HeroExpenses = () => {
                                     <div className="d-flex align-items-center bg-danger bg-opacity-10 rounded-pill px-3 py-2">
                                         <i className="bx bx-calendar text-danger me-2"></i>
                                         <span className="text-danger fw-semibold">
-                                            {currentTime.toLocaleDateString('en-US', { 
+                                            {currentTime.toLocaleDateString('id-ID', { 
                                                 weekday: 'long', 
                                                 year: 'numeric', 
                                                 month: 'long', 
@@ -101,7 +150,7 @@ const HeroExpenses = () => {
                                     </div>
                                     <div className="badge bg-danger bg-opacity-10 text-danger">
                                         <i className="bx bx-trending-down me-1"></i>
-                                        +0%
+                                        Total
                                     </div>
                                 </div>
                                 <h3 className="fw-bold text-danger mb-1">
@@ -158,11 +207,11 @@ const HeroExpenses = () => {
                                         Top Category
                                     </div>
                                 </div>
-                                <h3 className="fw-bold text-secondary mb-1">
-                                    {formatCurrency(0)}
+                                <h3 className="fw-bold text-secondary mb-1 text-capitalize">
+                                    {financialData.highestCategory || "None"}
                                 </h3>
                                 <p className="text-muted mb-0 fw-medium">Highest Category</p>
-                                <small className="text-muted">{financialData.highestCategory || "None"}</small>
+                                <small className="text-muted">Dominant spending area</small>
                             </div>
                         </div>
                     </div>

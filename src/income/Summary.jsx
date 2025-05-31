@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const Summary = ({ formatCurrency }) => {
     const [transactions, setTransactions] = useState([]);
     const [formData, setFormData] = useState({
-        type: "",
+        type: "income",
         category: "",
         amount: "",
         date: "",
@@ -76,7 +76,7 @@ const Summary = ({ formatCurrency }) => {
 
         const newTransaction = {
             id: Date.now(),
-            type,
+            type: "income",
             category,
             amount: parsedAmount,
             date,
@@ -92,7 +92,7 @@ const Summary = ({ formatCurrency }) => {
             localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
             setTransactions(updatedTransactions);
             setFormData({
-                type: "",
+                type: "income",
                 category: "",
                 amount: "",
                 date: "",
@@ -204,8 +204,8 @@ const Summary = ({ formatCurrency }) => {
                                             value={formData.type} 
                                             onChange={handleInputChange} 
                                             required
+                                            disabled
                                         >
-                                            <option value="">Select Type</option>
                                             <option value="income">Income</option>
                                         </select>
                                     </div>

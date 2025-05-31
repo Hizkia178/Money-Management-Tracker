@@ -11,7 +11,6 @@ const Hero = () => {
 
     useBootstrapTooltips();
 
- 
     useEffect(() => {
         AOS.init({ 
             duration: 1000, 
@@ -35,7 +34,6 @@ const Hero = () => {
         window.addEventListener("storage", loadTransactions);
         return () => window.removeEventListener("storage", loadTransactions);
     }, []);
-
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -83,9 +81,11 @@ const Hero = () => {
     };
 
     const formatCurrency = (amount) => {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('id-ID', {
             style: 'currency',
-            currency: 'USD'
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
         }).format(amount || 0);
     };
 
