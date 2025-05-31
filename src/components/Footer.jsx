@@ -199,29 +199,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <style jsx>{`
-                    .social-hover {
-                        transition: all 0.3s ease;
-                    }
-                    .social-hover:hover {
-                        color: #0d6efd !important;
-                        transform: translateY(-2px);
-                    }
-                    .nav-link-hover {
-                        transition: all 0.3s ease;
-                    }
-                    .nav-link-hover:hover {
-                        color: #0d6efd !important;
-                        padding-left: 5px;
-                    }
-                    .input-group .btn {
-                        border-left: none;
-                    }
-                    .input-group .form-control:focus {
-                        border-color: #0d6efd;
-                        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-                    }
-                `}</style>
+               
             </footer>
         </>
     );
