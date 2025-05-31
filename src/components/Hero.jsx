@@ -5,28 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { useBootstrapTooltips } from "../functions/Tooltip";
 import "aos/dist/aos.css";
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom'; 
 
 const Hero = () => {
     const navigate = useNavigate();
     useBootstrapTooltips();
-
-    const handleGetStartedClick = () => {
-        Swal.fire({
-            title: 'Do you want to get started for free?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const isLoggedIn = localStorage.getItem('token') !== null;
-
-                if (isLoggedIn) {
-                    navigate('/income');
-                }
-            }
-        });
-    };
 
 
     const handleWatchDemoClick = () => {
@@ -85,10 +68,11 @@ const Hero = () => {
                             </p>
 
                             <div className="d-flex flex-column flex-sm-row gap-3 mb-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
-                                <button className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="700" data-bs-toggle="tooltip" title="Get Started Free" onClick={handleGetStartedClick}>
+                                <Link to="/income" className="btn btn-primary btn-lg px-4 py-3 rounded-3 shadow-lg">
                                     <i className="bx bx-rocket me-2"></i>
                                     Get Started Free
-                                </button>
+                                </Link>
+
                                 <button className="btn btn-outline-primary btn-lg px-4 py-3 rounded-3 shadow-lg" data-aos="fade-up" data-aos-delay="800" data-bs-toggle="tooltip" title="Watch Demo" onClick={handleWatchDemoClick}>
                                     <i className="bx bx-play-circle me-2"></i>
                                     Watch Demo
