@@ -9,8 +9,8 @@ const Footer = () => {
     const [locationError, setLocationError] = useState(null);
 
     useEffect(() => {
-        AOS.init({ 
-            duration: 1000, 
+        AOS.init({
+            duration: 1000,
             once: true,
             offset: 100
         });
@@ -88,15 +88,15 @@ const Footer = () => {
 
     return (
         <>
-            <footer 
-                className="mt-5 overflow-hidden" 
+            <footer
+                className="mt-5 overflow-hidden"
                 style={{
                     background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
                     color: '#e0e0e0',
                     boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.3)',
                     borderTop: '3px solid #0f3460'
                 }}
-                data-aos="fade-up" 
+                data-aos="fade-up"
                 data-aos-duration="1000"
             >
                 <div className="container py-5">
@@ -109,18 +109,18 @@ const Footer = () => {
                                 </h4>
                             </div>
                             <p className="mb-4" style={{ color: '#b0b0b0', lineHeight: '1.6' }}>
-                                Empower your financial journey with our cutting-edge money management platform. 
+                                Empower your financial journey with our cutting-edge money management platform.
                                 Track income, optimize expenses, and achieve your goals with ease.
                             </p>
                             <div className="d-flex gap-3" data-aos="fade-up" data-aos-delay="300">
                                 {['facebook-circle', 'twitter', 'instagram', 'linkedin'].map((platform, index) => (
-                                    <a 
+                                    <a
                                         key={platform}
-                                        href="#" 
-                                        className="fs-4" 
-                                        style={{ 
-                                            color: '#00a8ff', 
-                                            transition: 'transform 0.3s ease, color 0.3s ease' 
+                                        href="#"
+                                        className="fs-4"
+                                        style={{
+                                            color: '#00a8ff',
+                                            transition: 'transform 0.3s ease, color 0.3s ease'
                                         }}
                                         onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
                                         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
@@ -143,12 +143,12 @@ const Footer = () => {
                                     { icon: 'bar-chart-alt-2', text: 'Reports' }
                                 ].map((link, index) => (
                                     <li key={index} className="mb-3">
-                                        <a 
-                                            href="#" 
-                                            className="text-decoration-none" 
-                                            style={{ 
-                                                color: '#e0e0e0', 
-                                                transition: 'color 0.3s ease, padding-left 0.3s ease' 
+                                        <a
+                                            href="#"
+                                            className="text-decoration-none"
+                                            style={{
+                                                color: '#e0e0e0',
+                                                transition: 'color 0.3s ease, padding-left 0.3s ease'
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.currentTarget.style.color = '#00a8ff';
@@ -178,12 +178,12 @@ const Footer = () => {
                                     { icon: 'shield', text: 'Secure Data' }
                                 ].map((feature, index) => (
                                     <li key={index} className="mb-3">
-                                        <a 
-                                            href="#" 
-                                            className="text-decoration-none" 
-                                            style={{ 
-                                                color: '#e0e0e0', 
-                                                transition: 'color 0.3s ease, padding-left 0.3s ease' 
+                                        <a
+                                            href="#"
+                                            className="text-decoration-none"
+                                            style={{
+                                                color: '#e0e0e0',
+                                                transition: 'color 0.3s ease, padding-left 0.3s ease'
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.currentTarget.style.color = '#00a8ff';
@@ -213,12 +213,12 @@ const Footer = () => {
                                     { icon: 'check-shield', text: 'Terms of Service' }
                                 ].map((support, index) => (
                                     <li key={index} className="mb-3">
-                                        <a 
-                                            href="#" 
-                                            className="text-decoration-none" 
-                                            style={{ 
-                                                color: '#e0e0e0', 
-                                                transition: 'color 0.3s ease, padding-left 0.3s ease' 
+                                        <a
+                                            href="#"
+                                            className="text-decoration-none"
+                                            style={{
+                                                color: '#e0e0e0',
+                                                transition: 'color 0.3s ease, padding-left 0.3s ease'
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.currentTarget.style.color = '#00a8ff';
@@ -256,8 +256,8 @@ const Footer = () => {
                                         onFocus={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.2)'}
                                         onBlur={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
                                     />
-                                    <button 
-                                        className="btn btn-primary rounded-end-pill" 
+                                    <button
+                                        className="btn btn-primary rounded-end-pill"
                                         type="button"
                                         style={{
                                             background: '#00a8ff',
@@ -286,10 +286,10 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div 
-                    className="border-top" 
-                    style={{ borderColor: '#00a8ff !important' }} 
-                    data-aos="fade-up" 
+                <div
+                    className="border-top"
+                    style={{ borderColor: '#00a8ff !important' }}
+                    data-aos="fade-up"
                     data-aos-delay="800"
                 >
                     <div className="container py-4">
@@ -334,10 +334,7 @@ const Footer = () => {
                 .input-group input:focus {
                     box-shadow: 0 0 8px rgba(0, 168, 255, 0.5);
                 }
-                .btn-primary:hover {
-                    background: #40c4ff !important;
-                    border-color: #40c4ff !important;
-                }
+             
             `}</style>
         </>
     );
