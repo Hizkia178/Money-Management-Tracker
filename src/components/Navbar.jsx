@@ -128,7 +128,7 @@ const Navbar = () => {
             <div className="container">
                 <a href="#" className="navbar-brand d-flex align-items-center text-primary" data-aos="fade-down" data-aos-duration="600">
                     <i className="bx bx-wallet fs-4 me-2"></i>
-                    Money Management Tracker
+                    Money Management
                 </a>
                 <button
                     className="navbar-toggler"
