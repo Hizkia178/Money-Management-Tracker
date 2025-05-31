@@ -245,20 +245,6 @@ const Pricing = () => {
                     ))}
                 </div>
             </div>
-
-            <style jsx>{`
-                .bg-gradient-primary {
-                    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
-                }
-                .card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-                }
-                .form-check-input:checked {
-                    background-color: #0d6efd;
-                    border-color: #0d6efd;
-                }
-            `}</style>
         </section>
     );
 };

@@ -155,7 +155,7 @@ const ScrollToTop = () => {
                     transform: translateY(0) scale(0.95) !important;
                 }
 
-                /* Touch feedback untuk mobile */
+              
                 @media (max-width: 768px) {
                     .scroll-to-top-btn:active {
                         transform: translateY(0) scale(0.9) !important;
@@ -163,7 +163,6 @@ const ScrollToTop = () => {
                     }
                 }
 
-                /* Smooth transition untuk semua perubahan */
                 .scroll-to-top-btn * {
                     transition: inherit;
                 }

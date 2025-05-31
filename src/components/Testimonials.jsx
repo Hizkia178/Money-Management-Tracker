@@ -265,27 +265,6 @@ const Testimonials = () => {
 
 
             </div>
-
-            <style jsx>{`
-                .bg-gradient-primary {
-                    background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
-                }
-                .z-index-1 {
-                    z-index: 1;
-                }
-                .transition-all {
-                    transition: all 0.3s ease;
-                }
-                .testimonial-carousel {
-                    max-height: 400px;
-                }
-               
-                @media (max-width: 768px) {
-                    .testimonial-carousel {
-                        max-height: none;
-                    }
-                }
-            `}</style>
         </section>
     );
 };
