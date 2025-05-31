@@ -5,7 +5,7 @@ import AOS from 'aos';
 
 const Hero = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [userName] = useState("John Doe"); 
+    const [userName] = useState("Hizkia Siahaan"); 
     
     const [financialData] = useState({
         totalIncome: 0,
