@@ -1,8 +1,32 @@
 import { useState, useEffect } from "react";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
+import Swal from 'sweetalert2';
 
 const Footer = () => {
+    const [email, setEmail] = useState('');
+
+    function handleSendClick() {
+        if (!email) {
+            Swal.fire({
+                title: 'Oops!',
+                text: 'Please enter your email.',
+                icon: 'warning',
+                confirmButtonColor: '#00a8ff'
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Success!',
+            text: `Email "${email}" has been sent.`,
+            icon: 'success',
+            confirmButtonColor: '#00a8ff'
+        });
+
+
+        setEmail('');
+    }
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [currentTime, setCurrentTime] = useState(new Date());
     const [userLocation, setUserLocation] = useState("Fetching location...");
@@ -254,6 +278,8 @@ const Footer = () => {
                                         }}
                                         onFocus={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.2)'}
                                         onBlur={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                     <button
                                         className="btn btn-primary rounded-end-pill"
@@ -265,6 +291,7 @@ const Footer = () => {
                                         }}
                                         onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                                         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                        onClick={handleSendClick}
                                     >
                                         <i className="bx bx-send"></i>
                                     </button>
